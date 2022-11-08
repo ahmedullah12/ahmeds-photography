@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
+    const {user, logOut} = useContext(AuthContext);
+    const handleLogOut = () => {
+        logOut()
+        .then(() => {})
+        .catch(err => console.log(err))
+    }
     const menuItems = <>
         <li><Link>Home</Link></li>
         <li><Link>Blog</Link></li>
+        {
+            user?.email ?
+            <>
+                <li><Link>Reviews</Link></li>
+                <li><Link>Services</Link></li>
+                <li><button onClick={handleLogOut}>Log Out</button></li>
+            </>
+            :
+            <li><Link>Login</Link></li>
+        }
     </>
 
     return (
@@ -27,6 +44,7 @@ const Header = () => {
                     {menuItems}
                 </ul>
             </div>
+            
             
         </div>
     );

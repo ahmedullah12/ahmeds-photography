@@ -1,13 +1,13 @@
-import React, { useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
-    const {loginWithEmailAndPassword} = useContext(AuthContext);
+    const {loginWithEmailAndPassword, loginWithGoogle} = useContext(AuthContext);
 
 
-    const handleLogin = (event) => {
+    const handleLoginWithEmailAndPassword = (event) => {
         event.preventDefault();
         const form  = event.target;
         const email = form.email.value;
@@ -18,6 +18,14 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
+        })
+        .catch(err => console.error(err))
+    }
+    const handleGoogleLogin = () => {
+        loginWithGoogle()
+        .then(result => {
+            const user = result.user;
+            console.log(user)
         })
         .catch(err => console.error(err))
     }
@@ -34,7 +42,7 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm  shadow-2xl p-2 lg:p-10 bg-base-100">
           <h1 className="mt-4 text-4xl text-center font-bold">Login now!</h1>
-          <form onSubmit={handleLogin}  className="card-body">
+          <form onSubmit={handleLoginWithEmailAndPassword}  className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -65,10 +73,10 @@ const Login = () => {
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">Login</button>
             </div>
-            <div className="flex">
-                <button className=" mt-6 mx-auto px-6 btn btn-success"><FcGoogle className="text-2xl mr-3"></FcGoogle>Sign In With Google</button>
-            </div>
           </form>
+          <div className="flex">
+                <button onClick={handleGoogleLogin} className=" mx-auto px-6 btn btn-success"><FcGoogle className="text-2xl mr-3"></FcGoogle>Sign In With Google</button>
+          </div>
         </div>
       </div>
     </div>
