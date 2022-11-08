@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
+    const {loginWithEmailAndPassword} = useContext(AuthContext);
+
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        const form  = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password);
+
+        loginWithEmailAndPassword(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(err => console.error(err))
+    }
   return (
     <div className="hero  py-4  lg:py-20 bg-base-200">
       <div className="hero-content block lg:flex">
@@ -16,8 +34,7 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm  shadow-2xl p-2 lg:p-10 bg-base-100">
           <h1 className="mt-4 text-4xl text-center font-bold">Login now!</h1>
-          <div className="card-body">
-            
+          <form onSubmit={handleLogin}  className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -26,7 +43,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 placeholder="Your Email"
-                className="input w-full input-bordered"
+                className="input  input-bordered"
                 required
               />
             </div>
@@ -51,7 +68,7 @@ const Login = () => {
             <div className="flex">
                 <button className=" mt-6 mx-auto px-6 btn btn-success"><FcGoogle className="text-2xl mr-3"></FcGoogle>Sign In With Google</button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
