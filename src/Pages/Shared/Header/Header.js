@@ -10,17 +10,17 @@ const Header = () => {
         .catch(err => console.log(err))
     }
     const menuItems = <>
-        <li><Link>Home</Link></li>
-        <li><Link>Blog</Link></li>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/blog'>Blog</Link></li>
         {
             user?.email ?
             <>
-                <li><Link>Reviews</Link></li>
-                <li><Link>Services</Link></li>
+                <li><Link to='/my-reviews'>My reviews</Link></li>
+                <li><Link to='/add-services'>Add services</Link></li>
                 <li><button onClick={handleLogOut}>Log Out</button></li>
             </>
             :
-            <li><Link>Login</Link></li>
+            <li><Link to='/login'>Login</Link></li>
         }
     </>
 

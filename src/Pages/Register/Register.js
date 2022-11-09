@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Register = () => {
-    const {user, signUpWithEmailAndPassword} =  useContext(AuthContext)
+    const {signUpWithEmailAndPassword} =  useContext(AuthContext)
     const handleCreateUser = (event) => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
+        const photoURL = form.photoURL.value;
         const email = form.email.value;
         const password = form.password.value;
         
@@ -42,7 +43,19 @@ const Register = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Your Email"
+                placeholder="Your Name"
+                className="input w-full input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Image Url</span>
+              </label>
+              <input
+                type="url"
+                name="photoURL"
+                placeholder="Your PhotoURL"
                 className="input w-full input-bordered"
                 required
               />
