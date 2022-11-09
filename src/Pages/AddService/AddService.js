@@ -25,7 +25,11 @@ const AddService = () => {
             body: JSON.stringify(service)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if(data.modifiedCount > 0){
+                alert('Service added successfully')
+            }
+        })
     }
     return (
         <div className=''>
