@@ -17,11 +17,17 @@ const Header = () => {
             <>
                 <li><Link to='/my-reviews'>My reviews</Link></li>
                 <li><Link to='/add-services'>Add services</Link></li>
-                <li><button onClick={handleLogOut}>Log Out</button></li>
+                <li><button className='ml-2 text-white btn btn-primary' onClick={handleLogOut}>Log Out</button></li>
+                <div  className="flex gap-2 px-4 py-3">
+                    <img className='w-7 h-7 rounded-full' src={user?.photoURL} alt="" />
+                    <p>{user?.displayName}</p>
+                </div>
             </>
             :
             <li><Link to='/login'>Login</Link></li>
+            
         }
+        
     </>
 
     return (
