@@ -1,5 +1,6 @@
 import React from "react";
 import {BsArrowRight} from "react-icons/bs"
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
 
 const Service = ({ service }) => {
@@ -7,7 +8,11 @@ const Service = ({ service }) => {
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>
-        <img className="w-80 h-52 mt-10 rounded"  src={image} alt="Shoes" />
+      <PhotoProvider>
+          <PhotoView src={image}>
+          <img className="w-80 h-52 mt-10 rounded"  src={image} alt="Shoes" />
+          </PhotoView>
+      </PhotoProvider>
       </figure>
       <div className="card-body">
         <h2 className="card-title">

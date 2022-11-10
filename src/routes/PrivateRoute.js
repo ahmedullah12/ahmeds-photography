@@ -9,7 +9,7 @@ const PrivateRoute = ({children}) => {
         return (
             <div className="d-flex justify-content-center mt-5">
                 <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
+                    <span className="visually-hidden">Plaese Wait...Data Loading</span>
                 </div>
             </div>
         )

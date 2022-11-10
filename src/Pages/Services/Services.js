@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Service from './Service';
+import { Helmet} from 'react-helmet-async';
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -10,7 +11,11 @@ const Services = () => {
         .then(data => setServices(data));
     },[])
     return (
+        
         <div className='mt-10 text-center '>
+            <Helmet>
+                <title>Services -Ahmed's Photography</title>
+            </Helmet>
             <h2 className='text-4xl text-orange-400 font-bold'>My All Services</h2>
             <p className='text-lg my-4'>These are  the all photography services I provide. You can select what you like from this services.</p>
             <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-start'>
