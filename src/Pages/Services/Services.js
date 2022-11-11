@@ -7,7 +7,7 @@ const Services = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        fetch('https://assignment-11-server-side-wine.vercel.app/services')
         .then(res => res.json())
         .then(data => {
             setLoading(false)

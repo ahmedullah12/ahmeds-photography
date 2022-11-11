@@ -1,6 +1,23 @@
+# Project Live Webste
+Live Website: https://assignment-11-client-sid-51556.web.app/
+
+
+# Project Details
+* This website is created with React and React Router
+* This is a website of a professional photographer
+* You can get many servuces and also add services
+* You can see the details of the services and add review
+* Tailwind and daisy ui is used
+* MongoDB is used for backend database
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 

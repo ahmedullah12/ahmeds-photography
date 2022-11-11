@@ -12,7 +12,7 @@ const Myreview = ({rev, handleDelete}) => {
             review: newReview
         }
         
-        fetch(`http://localhost:5000/reviews/${_id}`, {
+        fetch(`https://assignment-11-server-side-wine.vercel.app/reviews/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -31,7 +31,7 @@ const Myreview = ({rev, handleDelete}) => {
    
     return (
         <div className=' lg:flex  gap-5 justify-around items-center bg-slate-100 my-10 p-4'>
-            <img className='w-24 h-24 mx-auto mb-6 lg:m-0 rounded-lg' src={serviceImage} alt="" />
+            <img className='w-24 h-24 mx-auto mb-6 lg:m-0 rounded-lg'  src={serviceImage} alt="" />
             <div>
                 <h2 className='text-xl mb-5 lg:text-2xl font-semibold'>Service Name: {serviceTitle}</h2>
                 <p className='font-semibold'>Your Review: {review}</p>

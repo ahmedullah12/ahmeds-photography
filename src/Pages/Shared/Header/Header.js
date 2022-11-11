@@ -13,7 +13,7 @@ const Header = () => {
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blogs'>Blog</Link></li>
         {
-            user?.email ?
+            user?.uid ?
             <>
                 <li><Link to='/my-reviews'>My reviews</Link></li>
                 <li><Link to='/add-services'>Add services</Link></li>

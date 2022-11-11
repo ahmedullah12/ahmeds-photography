@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 const AddService = () => {
     const handleSubmit = (event) => {
@@ -18,7 +19,7 @@ const AddService = () => {
             image: image,
             price: price
         }
-        fetch('http://localhost:5000/services', {
+        fetch('https://assignment-11-server-side-wine.vercel.app/services', {
             method: "POST",
             headers: {
                 "content-type" : "application/json"
@@ -27,8 +28,9 @@ const AddService = () => {
         })
         .then(res => res.json())
         .then(data => {
-            if(data.modifiedCount > 0){
-                alert('Service added successfully')
+            if(data.acknowledged){
+                toast.success('Service added successfully')
+                form.reset();
             }
         })
     }

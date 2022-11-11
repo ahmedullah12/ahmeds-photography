@@ -4,11 +4,11 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import Myreview from './MyReview';
 
 const MyReviews = () => {
-    const {user} = useContext(AuthContext)
+    const {user, logOut} = useContext(AuthContext)
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+        fetch(`https://assignment-11-server-side-wine.vercel.app/reviews?email=${user?.email}`)
         .then(res => res.json())
         .then(data => setReviews(data));
     },[user?.email])
@@ -16,16 +16,23 @@ const MyReviews = () => {
     
 
     const  handleDelete = (id) => {
-        const proceed = window.confirm('Are you sure you want to cancel the order');
+        const proceed = window.confirm('Are you sure you want to delete your review');
         if(proceed){
-            fetch(`http://localhost:5000/reviews/${id}`, {
+            fetch(`https://assignment-11-server-side-wine.vercel.app/reviews/${id}`, {
                 method: "DELETE",
             })
-            .then(res => res.json())
+            .then(res => {
+                if(res.status === 401 || res.status === 403){
+                    logOut()
+                    .then()
+                    .catch()
+                }
+                return res.json();
+            })
             .then(data => {
                 console.log(data);
                 if(data.deletedCount > 0){
-                    alert('Deleted Successfully');
+                    alert('Review deleted Successfully');
                     const remaining = reviews.filter(rev => rev._id !== id);
                     setReviews(remaining);
                 }

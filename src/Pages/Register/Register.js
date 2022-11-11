@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Register = () => {
@@ -18,6 +19,7 @@ const Register = () => {
             const user = result.user;
             console.log(user);
             handleUpdateUserProfile(name, photoURL);
+            toast.success('User created successfully')
             form.reset();
         })
         .catch(err => console.error(err))

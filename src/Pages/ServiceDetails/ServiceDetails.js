@@ -28,7 +28,7 @@ const ServiceDetails = () => {
             review: review,
         }
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://assignment-11-server-side-wine.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 "content-type" : "application/json"
@@ -45,7 +45,7 @@ const ServiceDetails = () => {
 
     }
     useEffect(()=> {
-        fetch(`http://localhost:5000/service-reviews/${_id}`)
+        fetch(`https://assignment-11-server-side-wine.vercel.app/service-reviews/${_id}`)
         .then(res => res.json())
         .then(data => {
             console.log(data);
@@ -73,8 +73,8 @@ const ServiceDetails = () => {
             {
                 user?.email ? 
                 <>
-                    <form onSubmit={handleReviewSubmit} className='mt-10 flex gap-6 items-center justify-center'>
-                        <textarea className='p-5' name="review" id="" cols="90" rows="5"></textarea>
+                    <form onSubmit={handleReviewSubmit} className='mt-10 lg:flex gap-6 items-center justify-center'>
+                        <textarea className='p-5 w-72 lg:w-4/5' name="review" id="" cols="30" rows="5"></textarea>
                         <button className='btn btn-primary'>Add Review</button>
                     </form>
                 </>
