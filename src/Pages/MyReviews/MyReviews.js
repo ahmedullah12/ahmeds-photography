@@ -8,7 +8,11 @@ const MyReviews = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        fetch(`https://assignment-11-server-side-wine.vercel.app/reviews?email=${user?.email}`)
+        fetch(`https://assignment-11-server-side-wine.vercel.app/reviews?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('ahmed-token')}`
+            }
+        })
         .then(res => res.json())
         .then(data => setReviews(data));
     },[user?.email])
