@@ -7,11 +7,7 @@ const PrivateRoute = ({children}) => {
     const location = useLocation();
     if(loading){
         return (
-            <div className="d-flex justify-content-center mt-5">
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Plaese Wait...Data Loading</span>
-                </div>
-            </div>
+            <div className="mx-96 my-60  radial-progress" style={{"--value":70}}>70%</div>
         )
     }
     if(!user){

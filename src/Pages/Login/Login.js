@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const {loginWithEmailAndPassword, loginWithGoogle} = useContext(AuthContext);
@@ -36,7 +37,11 @@ const Login = () => {
         .catch(err => console.error(err))
     }
   return (
+    
     <div className="hero  py-4  lg:py-20 bg-base-200">
+      <Helmet>
+        <title>Login -Ahmed's Photography</title>
+      </Helmet>
       <div className="hero-content block lg:flex">
         <div>
           <img

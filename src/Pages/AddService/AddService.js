@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const AddService = () => {
     const handleSubmit = (event) => {
@@ -33,6 +34,9 @@ const AddService = () => {
     }
     return (
         <div className=''>
+            <Helmet>
+                <title>Add Service -Ahmed's Photography</title>
+            </Helmet>
             <h2 className='text-2xl font-bold text-center'>You can add services. You will need to to give data in the form below to add a service.</h2>
             <form onSubmit={handleSubmit} className='p-10'>
                 <div className='mb-3'>

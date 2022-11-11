@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
@@ -33,6 +34,9 @@ const Register = () => {
     }
   return (
     <div className="hero  py-4  lg:py-20 bg-base-200">
+      <Helmet>
+        <title>Register -Ahmed's Photography</title>
+      </Helmet>
       <div className="hero-content block lg:flex">
         <div>
           <img

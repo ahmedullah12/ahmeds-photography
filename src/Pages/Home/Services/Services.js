@@ -4,11 +4,15 @@ import Service from './Service';
 
 const Services = () => {
     const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         fetch('http://localhost:5000/limited-services')
         .then(res => res.json())
-        .then(data => setServices(data));
+        .then(data => {
+            setLoading(false)
+            setServices(data)
+        });
     },[setServices])
     return (
         <div className='mt-10 text-center '>
@@ -16,7 +20,10 @@ const Services = () => {
             <p className='text-lg my-4'>These are  the latest photography services I provide. You can see all the service by clicking see all button.</p>
             
             <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-start'>
-                {
+                {   
+                    loading ?
+                    <div className="mx-96 my-60  radial-progress" style={{"--value":70}}>70%</div>
+                    :
                     services.map(service => <Service key={service._id} service={service}></Service>)
                 }
             </div>
