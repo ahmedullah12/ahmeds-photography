@@ -1,60 +1,62 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import Myreview from './MyReview';
+import { useQuery } from 'react-query';
 
 const MyReviews = () => {
-    const {user, logOut} = useContext(AuthContext)
-    const [reviews, setReviews] = useState([]);
+    const {user} = useContext(AuthContext)
 
-    useEffect(() => {
-        fetch(`https://assignment-11-server-side-wine.vercel.app/reviews?email=${user?.email}`, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('ahmed-token')}`
-            }
-        })
-        .then(res => res.json())
-        .then(data => setReviews(data));
-    },[user?.email])
 
-    
 
-    const  handleDelete = (id) => {
+
+    const {data: reviews = [], refetch} = useQuery({
+        queryKey: ["review", user?.email],
+        queryFn: async() => {
+            const res = await fetch(`https://assignment-11-server-side-wine.vercel.app/reviews?email=${user?.email}`);
+            const data = await res.json();
+            return data;
+        }
+    })
+
+    const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure you want to delete your review');
         if(proceed){
             fetch(`https://assignment-11-server-side-wine.vercel.app/reviews/${id}`, {
                 method: "DELETE",
             })
-            .then(res => {
-                if(res.status === 401 || res.status === 403){
-                    logOut()
-                    .then()
-                    .catch()
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 console.log(data);
                 if(data.deletedCount > 0){
-                    alert('Review deleted Successfully');
-                    const remaining = reviews.filter(rev => rev._id !== id);
-                    setReviews(remaining);
+                    refetch();
                 }
+                
             })
         }
-    };
+    }
+    
     return (
-        <div>
+        <div className='mt-4'>
             <Helmet>
                 <title>My Reviews -Ahmed's Photography</title>
             </Helmet>
-            <h1 className='text-center text-2xl lg:text-3xl font-bold'>Here you see all your reviews you added.</h1>
-            <p className='text-center text-sm lg:text-xl font-semibold'>You haven't added any review please go to service details page and add review</p>
-            <div className='bg-white my-10 p-10'>
-                {
-                    reviews.map(rev => <Myreview key={rev._id} rev={rev} handleDelete={handleDelete}></Myreview>)
-                }
-            </div>
+            <h1 className='text-center text-2xl font-bold'>Here you see all your reviews you added.</h1>
+            {
+             
+                <div className='bg-white p-4'>
+                    
+                    {
+                        reviews.length ? (
+                            reviews.map(rev => <Myreview key={rev._id} rev={rev} handleDelete={handleDelete} refetch={refetch}></Myreview>)
+                        ) : (
+                            <p className='text-center text-sm lg:text-xl font-semibold'>
+                                You haven't added any review.
+                            </p>
+                        )
+                    }
+                </div>
+            }
         </div>
     );
 };

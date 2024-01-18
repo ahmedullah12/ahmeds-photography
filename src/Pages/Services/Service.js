@@ -18,10 +18,14 @@ const Service = ({service}) => {
             <h2 className="card-title">
               {title} 
             </h2>
-            <p>{description.slice(0, 100)} ...</p>
-            <p className="text-orange-600">Price: {price}</p>
+            {
+              description.length > 45 ?
+              <p>{description.slice(0, 40)} <span title={`${description}`}>...</span></p> :
+                <p>{description}</p> 
+            }
+            <p className="text-orange-600">Price: ${price} Per Day</p>
             <Link to={`/services/${_id}`}>
-                <button className="w-3/4 mt-3 ml-20 btn btn-secondary">More Details <BsArrowRight className="inline ml-4"></BsArrowRight></button>
+                <button className="w-3/4 mt-3 ml-20 btn btn-secondary text-white">More Details <BsArrowRight className="inline ml-4"></BsArrowRight></button>
             </Link>
           </div>
     </div>

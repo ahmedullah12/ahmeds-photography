@@ -1,14 +1,25 @@
 import React from 'react';
+import StarRatings from 'react-star-ratings';
 
 const ServiceReview = ({rev}) => {
-    console.log(rev)
-    const {userName, userPhoto, review} = rev;
+    
+    const {reviewText, name, rating} = rev;
     return (
-        <div className='bg-slate-100 p-4 my-10  lg:flex gap-6 items-center text-center lg:text-start'>
-            <img className='w-10 h-10 lg:w-24 lg:h-24 mx-auto lg:mx-0 rounded-full' src={userPhoto} alt="" />
-            <div>
-                <h4 className='text-2xl font-semibold'>{userName}</h4>
-                <p><span className='font-semibold'>Review:</span> {review}</p>
+        <div className='bg-slate-100 p-4 mb-3'>
+            <div className='flex items-center gap-3'>
+                <p className='text-xl font-medium'>{name}</p>
+            </div>
+            <p className='mt-3'><span className='me-4 font-medium'>Review: </span>{reviewText}</p>
+            <div className='flex gap-2'>
+            <p>Rating: </p>
+            <StarRatings
+                rating={rating}
+                starRatedColor="gold"
+                numberOfStars={5}
+                name='rating'
+                starDimension='20px'
+                starSpacing='2px'
+                ></StarRatings>
             </div>
         </div>
     );

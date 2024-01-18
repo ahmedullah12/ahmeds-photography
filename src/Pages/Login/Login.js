@@ -17,29 +17,11 @@ const Login = () => {
         const form  = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
 
         loginWithEmailAndPassword(email, password)
         .then(result => {
-            const user = result.user;
-            const currentUser = {
-              email: user.email,
-          };
-          fetch('https://assignment-11-server-side-wine.vercel.app/jwt', {
-              method: 'POST',
-              headers: {
-                  'content-type' : 'application/json'
-              },
-              body: JSON.stringify(currentUser)
-          })
-          .then(res => res.json())
-          .then(data => {
-              console.log(data);
-              localStorage.setItem('ahmed-token', data.token);
-              navigate(from,  {replace: true});
-          })
-          
-          form.reset();
+            navigate(from,  {replace: true});
+            form.reset();
         })
         .catch(err => console.error(err))
     }
@@ -58,17 +40,17 @@ const Login = () => {
       <Helmet>
         <title>Login -Ahmed's Photography</title>
       </Helmet>
-      <div className="hero-content block lg:flex">
+      <div className="hero-content flex flex-col md:flex-row" >
         <div>
           <img
-            className=" mr-0 mb-10   lg:mr-20"
-            width={"500px"}
+            className="w-[250px] md:w-[400px] lg:w-[500px] mr-0 mb-10   lg:mr-20"
+            
             src="https://i.ibb.co/3Rrd8VP/online-registration-sign-up-with-man-sitting-near-smartphone-268404-95.webp"
             alt=""
           />
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm  shadow-2xl p-2 lg:p-10 bg-base-100">
-          <h1 className="mt-4 text-4xl text-center font-bold">Login now!</h1>
+        <div className="card w-[280px] lg:w-[400px] shadow-2xl p-3 lg:p-10 bg-base-100">
+          <h1 className="mt-4 text-xl md:text-2xl lg:text-3xl text-center font-bold">Login now!</h1>
           <form onSubmit={handleLoginWithEmailAndPassword}  className="card-body">
             <div className="form-control">
               <label className="label">
@@ -98,11 +80,14 @@ const Login = () => {
                 Don't have an account? Please <Link className="link text-blue-700" to='/register'>Register.</Link>
             </p>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">Login</button>
+              <button type="submit" className="btn btn-primary px-4">Login</button>
             </div>
           </form>
-          <div className="flex">
-                <button onClick={handleGoogleLogin} className=" mx-auto px-6 btn btn-success"><FcGoogle className="text-2xl mr-3"></FcGoogle>Sign In With Google</button>
+          <div className="flex flex-col w-full">
+            <div className="divider">OR</div>
+          </div>
+          <div className="flex mb-4">
+                <button onClick={handleGoogleLogin} className=" mx-auto  btn btn-success px-6 lg:px-8"><FcGoogle className="text-2xl mr-3"></FcGoogle>Sign In With Google</button>
           </div>
         </div>
       </div>

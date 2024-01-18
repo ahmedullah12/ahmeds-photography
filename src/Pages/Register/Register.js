@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
-    const {signUpWithEmailAndPassword, updateUserProfile} =  useContext(AuthContext)
+    const {signUpWithEmailAndPassword, updateUserProfile} =  useContext(AuthContext);
+    const navigate = useNavigate();
     const handleCreateUser = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -19,11 +21,13 @@ const Register = () => {
             const user = result.user;
             console.log(user);
             handleUpdateUserProfile(name, photoURL);
-            toast.success('User created successfully')
+            saveUser(name, user.email);
+            toast.success('User created successfully');
             form.reset();
+            navigate('/');
         })
         .catch(err => console.error(err))
-    }
+    };
 
     const handleUpdateUserProfile = (name, photoURL) => {
       const profile = {
@@ -33,23 +37,34 @@ const Register = () => {
       updateUserProfile(profile)
       .then(() => {})
       .catch(err => console.error(err))
+    };
+
+    const saveUser = (name, email) => {
+      const user = {
+        name,
+        email,
+        isAdmin: false,
+      }
+
+      axios.post('https://assignment-11-server-side-wine.vercel.app/users', user)
+      .then(res => console.log(res))
+      .catch(err => console.log(err)); 
     }
   return (
     <div className="hero  py-4  lg:py-20 bg-base-200">
       <Helmet>
         <title>Register -Ahmed's Photography</title>
       </Helmet>
-      <div className="hero-content block lg:flex">
+      <div className="hero-content flex flex-col md:flex-row">
         <div>
           <img
-            className=" mr-0 mb-10   lg:mr-20"
-            width={"500px"}
+            className="w-[250px] md:w-[400px] lg:w-[500px] mr-0 mb-10   lg:mr-20"
             src="https://i.ibb.co/3Rrd8VP/online-registration-sign-up-with-man-sitting-near-smartphone-268404-95.webp"
             alt=""
           />
         </div>
 
-        <div className="card flex-shrink-0 w-full max-w-sm  shadow-2xl p-2 lg:p-10 bg-base-100">
+        <div className="card w-[280px] lg:w-[400px]  shadow-2xl p-2 lg:p-10 bg-base-100">
           <h1 className="mt-4 text-4xl text-center font-bold">Register now!</h1>
           <form onSubmit={handleCreateUser} className="card-body">
             <div className="form-control">

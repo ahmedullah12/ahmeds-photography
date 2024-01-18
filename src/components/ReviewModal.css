@@ -1,0 +1,15 @@
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+  }
+  .on {
+    color:gold;
+    margin-left: 10px;
+  }
+  .off {
+    color: #ccc;
+    margin-left: 10px;
+  }

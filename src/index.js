@@ -5,14 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
 import { HelmetProvider } from 'react-helmet-async';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
    <AuthProvider>
+    <QueryClientProvider client={queryClient}>
     <HelmetProvider>
       < App/>
     </HelmetProvider>
+    </QueryClientProvider>
    </AuthProvider>
   </React.StrictMode>
 );

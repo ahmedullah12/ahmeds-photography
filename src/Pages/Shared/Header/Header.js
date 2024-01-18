@@ -1,23 +1,47 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
 const Header = () => {
     const {user, logOut} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const {data: savedUser = {}} = useQuery({
+        queryKey: ["user", user],
+        queryFn: async() => {
+            const res = await axios.get(`https://assignment-11-server-side-wine.vercel.app/user?email=${user?.email}`);
+            const data = await res.data;
+            return data;
+        }
+    })
+
+
     const handleLogOut = () => {
         logOut()
-        .then(() => {})
+        .then(() => {
+            navigate('/login')
+        })
         .catch(err => console.log(err))
     }
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blogs'>Blog</Link></li>
+        <li><Link to='/services'>Services</Link></li>
         {
             user?.uid ?
             <>
-                <li><Link to='/my-reviews'>My reviews</Link></li>
-                <li><Link to='/add-services'>Add services</Link></li>
-                <li><button className='ml-2 text-white btn btn-primary' onClick={handleLogOut}>Log Out</button></li>
+                {
+                    savedUser.isAdmin === false ? 
+                    <li><Link to='/my-bookings'>My Bookings</Link></li>
+                    :
+                    savedUser.isAdmin === true ?
+                    <li><Link to='/add-services'>Add services</Link></li> :
+                    <li></li>
+                }
+                <li><button className='ml-2 text-white btn btn-primary  btn-sm md:btn-md'
+                 onClick={handleLogOut}>Log Out</button></li>
                 <div  className="flex gap-2 px-4 py-3">
                     <img className='w-7 h-7 rounded-full' src={user?.photoURL} alt="" />
                     <p>{user?.displayName}</p>
@@ -33,7 +57,7 @@ const Header = () => {
     </>
 
     return (
-        <div className="navbar h-20 mb-12  bg-white rounded">
+        <div className="navbar h-20  bg-white rounded">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">

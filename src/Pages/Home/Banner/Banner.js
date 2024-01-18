@@ -1,70 +1,34 @@
 import React from "react";
+import banner1 from '../../../assets/banner1.jpg'
+import banner2 from '../../../assets/banner2.jpg'
+import banner3 from '../../../assets/banner3.jpg'
 
 const Banner = () => {
+  const images = [
+    banner1,
+    banner2,
+    banner3,
+  ]
   return (
-    <div className="carousel w-full">
-      <div id="slide1" className="carousel-item relative w-full">
-        <img src="https://i.ibb.co/4F5Qdm7/car1.jpg"  className="w-full" alt="" />
-        <div className="text-white absolute flex justify-end transform -translate-y-1/2 left- top-1/3 lg:left-1/3 lg:top-1/2">
-          <h2 className="text-xl lg:text-5xl">Ahmed's Photography</h2>
+    <div className="carousel w-full h-[300px] md:h-[400px] lg:h-[600px]">
+      
+      {
+        images.map((img, i) => <div key={i} id={`slide${i + 1}`} className="carousel-item relative w-full">
+        <img src={img}  className="w-full" alt="" />
+        <div className="absolute top-[30%] md:top-[40%] lg:top-[40%] left-[20%] md:left-[30%] lg:left-[40%] text-center text-white">
+          <h3 className="mb-3 text-base md:text-2xl lg:text-4xl">Ahmed's Photography</h3>
+          <p className="text-xs md:text-base">I am a professional photographer and <br /> The best one you will find.</p>
         </div>
-        <div className="text-white absolute flex justify-end transform -translate-y-1/2 w-2/5 left-1/3 lg:left-1/4 top-2/3">
-          <p className="text-xs lg:text-2xl">I am a professional photgrapher and  <br /> The best one you will find ever.</p>
-        </div>
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide4" className="btn btn-circle">
+        <div className="absolute flex justify-between transform -translate-y-1/2 left-3 right-3 top-1/2">
+          <a href={`#slide${i === 0 ? images.length : i}`} className="btn btn-circle">
             ❮
           </a>
-          <a href="#slide2" className="btn btn-circle">
+          <a href={`#slide${i === images.length - 1 ? 1 : i + 2}`}  className="btn btn-circle">
             ❯
           </a>
         </div>
-      </div>
-      <div id="slide2" className="carousel-item relative w-full">
-        <img src="https://i.ibb.co/F40DY2v/gv-Q9-Nh-QP8wbb-M32j-Xy4-V3j-min.jpg"  className="w-full" alt="" />
-        <div className="text-white absolute flex justify-end transform -translate-y-1/2 left- top-1/3 lg:left-1/3 lg:top-1/2">
-          <h2 className="text-xl lg:text-5xl">Ahmed's Photography</h2>
-        </div>
-        <div className="text-white absolute flex justify-end transform -translate-y-1/2 w-2/5 left-1/3 lg:left-1/4 top-2/3">
-          <p className="text-xs lg:text-2xl">I am a professional photgrapher and  <br /> The best one you will find ever.</p>
-        </div>
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide1" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide3" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide3" className="carousel-item relative w-full">
-        <img src="https://i.ibb.co/cD3Bw8R/car3.jpg"  className="w-full" alt="" />
-        <div className="text-white absolute flex justify-end transform -translate-y-1/2 left- top-1/3 lg:left-1/3 lg:top-1/2">
-          <h2 className="text-xl lg:text-5xl">Ahmed's Photography</h2>
-        </div>
-        <div className="text-white absolute flex justify-end transform -translate-y-1/2 w-2/5 left-1/3 lg:left-1/4 top-2/3">
-          <p className="text-xs lg:text-2xl">I am a professional photgrapher and  <br /> The best one you will find ever.</p>
-        </div>
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide2" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide4" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide4" className="carousel-item relative w-full">
-        <img src="https://placeimg.com/800/200/arch"  className="w-full" alt="" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide3" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide1" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
+      </div>)
+      }
     </div>
   );
 };
