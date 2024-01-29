@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Service = ({service}) => {
-    const {_id, title, image, price, description} = service
+    const {_id, title, image, price, description} = service;
+
+    useEffect(() => {
+      AOS.init({
+        duration: "1500",
+        delay: "500",
+      })
+    }, [])
     return (
-        <div className="card w-full bg-base-100 shadow-xl">
+        <div data-aos="fade-up" className="card w-full bg-base-100 shadow-xl">
           <figure>
             <PhotoProvider>
                 <PhotoView src={image}>

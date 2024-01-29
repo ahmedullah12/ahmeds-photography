@@ -32,6 +32,10 @@ const MyBookings = () => {
         .catch(err => console.log(err));
     } 
 
+    if(bookings?.length === 0){
+        return <p className='text-center text-2xl mt-2 md:mt-3 lg:mt-5'>You haven't booked any products</p>
+    }
+
     if(isLoading){
         return <p>Loading...</p>
     }

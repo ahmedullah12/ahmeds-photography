@@ -41,7 +41,7 @@ const MyReviews = () => {
             <Helmet>
                 <title>My Reviews -Ahmed's Photography</title>
             </Helmet>
-            <h1 className='text-center text-2xl font-bold'>Here you see all your reviews you added.</h1>
+            <h1 className='text-center text-2xl font-bold mb-3'>Here you see all your reviews you added.</h1>
             {
              
                 <div className='bg-white p-4'>

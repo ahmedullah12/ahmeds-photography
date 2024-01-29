@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Service from './Service';
 
+
 const Services = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -13,7 +14,10 @@ const Services = () => {
             setLoading(false)
             setServices(data)
         });
-    },[setServices])
+    },[setServices]);
+
+
+
     return (
         <div className='mt-10 text-center '>
             <h2 className='text-4xl text-orange-400 font-bold'>My Services</h2>
