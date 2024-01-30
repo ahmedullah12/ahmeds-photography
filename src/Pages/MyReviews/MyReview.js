@@ -67,6 +67,7 @@ const Myreview = ({rev, handleDelete, refetch}) => {
                </div>
 
                 {/* Put this part before </body> tag */}
+                {/* update review modal */}
                 <input type="checkbox" id={`my-modal-${_id}`} className="modal-toggle" checked={isModalOpen}
                     onChange={() => setIsModalOpen(!isModalOpen)}
                 />

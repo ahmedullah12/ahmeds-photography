@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../../firebase/firebase.config';
 import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from "firebase/auth"
+import axios from 'axios';
 
 export const AuthContext = createContext();
 const auth = getAuth(app)
@@ -31,7 +32,19 @@ const AuthProvider = ({children}) => {
 
     const updateUserProfile = (profile) => {
         return updateProfile(auth.currentUser, profile)
-    }
+    };
+
+    const saveUser = (name, email) => {
+        const user = {
+          name,
+          email,
+          isAdmin: false,
+        }
+  
+        axios.post('https://assignment-11-server-side-wine.vercel.app/users', user)
+        .then(res => console.log(res))
+        .catch(err => console.log(err)); 
+      }
 
 
     useEffect(() => {
@@ -53,7 +66,8 @@ const AuthProvider = ({children}) => {
         loginWithEmailAndPassword,
         loginWithGoogle,
         logOut,
-        updateUserProfile
+        updateUserProfile,
+        saveUser
     }
     return (
         <div>

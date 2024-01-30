@@ -18,11 +18,11 @@ const ServiceDetails = () => {
     const maxDescriptionLength = 150;
 
     const sumOfRatings = rating && rating.length > 0
-    ? rating.reduce((acc, cur) => acc + cur, 0)
+    ? rating.reduce((acc, cur) => acc + cur.rating, 0)
     : 0;
 
   // Calculate the average rating
-  const averageRating = rating && rating.length > 0
+    const averageRating = rating && rating.length > 0
     ? sumOfRatings / rating.length
     : 0;
     const fullRatingString = averageRating.toFixed(1);

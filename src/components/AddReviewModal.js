@@ -79,7 +79,7 @@ const AddReviewModal = ({id, isModalOpen, setIsModalOpen, refetch}) => {
 
                         <form onSubmit={handleAddReview}>
                             <label>Add written review: </label> <br />
-                            <textarea className='p-4 rounded resize-none' name="review" id="" cols="40" rows="5" required></textarea> <br />
+                            <textarea className='p-4 rounded resize-none w-[250px] h-[120px] md:w-[400px] md:h-[200px]' name="review" required></textarea> <br />
                             <button type='submit' className='btn btn-primary rounded text-white mt-3'>add</button> 
                         </form>
                     </label>

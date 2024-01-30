@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import axios from "axios";
+import { FcGoogle } from 'react-icons/fc';
 
 const Register = () => {
-    const {signUpWithEmailAndPassword, updateUserProfile} =  useContext(AuthContext);
+    const [registerError, setRegisterError] = useState('')
+    const {signUpWithEmailAndPassword, updateUserProfile, loginWithGoogle, saveUser} =  useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
+
     const handleCreateUser = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -26,8 +31,24 @@ const Register = () => {
             form.reset();
             navigate('/');
         })
-        .catch(err => console.error(err))
-    };
+        .catch(err => {
+          const errorMessage = err.message
+          const errorCode = errorMessage.startsWith('Firebase: Error (auth/') ? errorMessage.slice(22, -2) : errorMessage;
+          setRegisterError(errorCode);
+        }
+    )};
+
+    const handleGoogleLogin = () => {
+      loginWithGoogle()
+      .then(result => {
+          const user = result.user;
+          saveUser(user.displayName, user.email);
+          navigate(from, {replace: true});
+      })
+      .catch(err => {
+        setRegisterError(err.message)
+      })
+  }
 
     const handleUpdateUserProfile = (name, photoURL) => {
       const profile = {
@@ -39,19 +60,9 @@ const Register = () => {
       .catch(err => console.error(err))
     };
 
-    const saveUser = (name, email) => {
-      const user = {
-        name,
-        email,
-        isAdmin: false,
-      }
-
-      axios.post('https://assignment-11-server-side-wine.vercel.app/users', user)
-      .then(res => console.log(res))
-      .catch(err => console.log(err)); 
-    }
+    
   return (
-    <div className="hero  py-4  lg:py-20 bg-base-200">
+    <div className="hero bg-base-200">
       <Helmet>
         <title>Register -Ahmed's Photography</title>
       </Helmet>
@@ -115,18 +126,27 @@ const Register = () => {
                 required
               />
             </div>
+            {
+              registerError && <p className="text-red-500">Error: {registerError}</p>
+            }
             <p className="text-sm  mt-2 ">
               Already have an account? Please{" "}
               <Link className="link text-blue-700" to="/login">
                 Login.
               </Link>
             </p>
-            <div className="form-control mt-6">
+            <div className="form-control mt-4">
               <button type="submit" className="btn btn-primary">
                 Register
               </button>
             </div>
           </form>
+          <div className="flex flex-col w-full">
+            <div className="divider">OR</div>
+          </div>
+          <div className="flex mb-4">
+                <button onClick={handleGoogleLogin} className=" mx-auto  btn btn-success px-6 lg:px-8"><FcGoogle className="text-2xl mr-3"></FcGoogle>Sign In With Google</button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 
 const Login = () => {
-    const {loginWithEmailAndPassword, loginWithGoogle} = useContext(AuthContext);
+    const [loginError, setLoginError] = useState('')
+    const {loginWithEmailAndPassword, loginWithGoogle, saveUser} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -23,20 +24,26 @@ const Login = () => {
             navigate(from,  {replace: true});
             form.reset();
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+          const errorMessage = err.message
+          const errorCode = errorMessage.startsWith('Firebase: Error (auth/') ? errorMessage.slice(22, -2) : errorMessage;
+          setLoginError(errorCode)
+        })
     }
     const handleGoogleLogin = () => {
         loginWithGoogle()
         .then(result => {
             const user = result.user;
-            console.log(user);
+            saveUser(user.displayName, user.email)
             navigate(from, {replace: true});
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+          setLoginError(err.message)
+        })
     }
   return (
     
-    <div className="hero  py-4  lg:py-20 bg-base-200">
+    <div className="hero bg-base-200">
       <Helmet>
         <title>Login -Ahmed's Photography</title>
       </Helmet>
@@ -79,6 +86,9 @@ const Login = () => {
             <p  className="text-sm  mt-2 ">
                 Don't have an account? Please <Link className="link text-blue-700" to='/register'>Register.</Link>
             </p>
+            {
+              loginError && <p className="text-red-500">Error: {loginError}</p>
+            }
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary px-4">Login</button>
             </div>

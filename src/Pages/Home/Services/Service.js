@@ -11,7 +11,7 @@ const Service = ({ service }) => {
     useEffect(() => {
       AOS.init({
           duration: "1500",
-          delay: "800",
+          delay: "500",
       });
   }, [])
   return (

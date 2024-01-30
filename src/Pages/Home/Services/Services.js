@@ -26,9 +26,9 @@ const Services = () => {
             <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-start'>
                 {   
                     loading ?
-                    <div>
-                        <span className="loading loading-spinner loading-xs"></span>
-                    </div>
+                    <>
+                        <p>Loading...</p>
+                    </>
                     :
                     services.map(service => <Service key={service._id} service={service}></Service>)
                 }

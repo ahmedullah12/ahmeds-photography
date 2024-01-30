@@ -32,15 +32,15 @@ export const router = createBrowserRouter([
             {
                 path: '/services/:id',
                 loader: ({params}) => fetch(`https://assignment-11-server-side-wine.vercel.app/services/${params.id}`),
-                element: <ServiceDetails></ServiceDetails>
+                element: <PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>
             },
             {
                 path: '/my-bookings',
-                element: <MyBookings></MyBookings>
+                element: <PrivateRoute><MyBookings></MyBookings></PrivateRoute>
             },
             {
                 path: '/my-reviews',
-                element: <MyReviews></MyReviews>
+                element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>
             },
             {
                 path: '/add-services',
